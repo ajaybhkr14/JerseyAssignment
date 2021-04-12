@@ -24,6 +24,9 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.module',name:'jackson-module-kotlin' ,version:'2.12.2'
     // https://mvnrepository.com/artifact/org.json/json
     implementation group: 'org.json', name: 'json', version: '20190722'
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
+    implementation group: 'org.mongodb', name: 'mongodb-driver', version: '3.6.3'
+
 }
 
 test {

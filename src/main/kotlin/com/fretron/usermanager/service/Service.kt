@@ -10,7 +10,7 @@ class Service(private val repository: UserRepository) {
         if (user.name!!.isBlank()) throw Exception("name can't be blank")
         user.id = UUID.randomUUID().toString()
         val mapId = user.id.toString()
-        return repository.addUser(mapId,user)
+        return repository.addUser(user)
     }
 
     fun getUserById(userId: String): User? {
