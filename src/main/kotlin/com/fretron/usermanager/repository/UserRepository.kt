@@ -1,10 +1,14 @@
 package com.fretron.usermanager.repository
 
 import com.fretron.usermanager.model.User
+import com.fretron.usermanager.util.Mapper
+import com.mongodb.BasicDBObject
 import com.mongodb.MongoClient
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters
+import com.mongodb.util.JSON
 import org.bson.Document
+import org.bson.conversions.Bson
 
 class UserRepository {
     var mongoClient: MongoClient?=null
@@ -20,41 +24,51 @@ class UserRepository {
         mongoClient?.close()
     }
 
-    val userMap = mutableMapOf<String,User>()
-
-    fun addUser(user: User): User {
+    fun addUser(user: User): Boolean{
         createConnection()
         val collection =mongoDatabase?.getCollection("user")
         val document =Document.parse(user.toString())
         collection?.insertOne(document)
         closeConnection()
-        return user
+        return true
     }
 
     fun getUserById(id: String): User? {
         createConnection()
         val collection =mongoDatabase?.getCollection("user")
-
-        return userMap[id]
-    }
-
-    fun updateUserById(id: String,name: String): User? {
-        val user: User = userMap[id]!!
-        if (user!=null) {
-            user.name = name
+        var user :User? =null
+        val query = BasicDBObject()
+        query["id"]=id
+        collection!!.find(query).iterator().use{
+            point ->while (point.hasNext()){
+            val document =point.next()
+            document.remove("_id")
+            val json =JSON.serialize(document)
+            println(json.toString())
+            user = Mapper().mapper(json.toString())
+            }
         }
-        userMap.set(id,user)
-        return userMap[id]
+        closeConnection()
+        return user
     }
 
-    fun deleteUserById(id: String): User? {
+    fun updateUserById(id: String,user: User): Boolean {
+        println("asxaskk")
+        createConnection()
+        val collection =mongoDatabase?.getCollection("user")
+        val query = BasicDBObject()
+        query["_id"]=id
+        val document = Document.parse(user.toString())
+        val update = Document("\$set", document)
+        val mongoCollection=collection?.findOneAndUpdate(query,update)
+        return mongoCollection!=null
+    }
+
+    fun deleteUserById(id: String): Boolean {
         createConnection()
         val collection = mongoDatabase?.getCollection("user")
-        collection?.deleteOne(Filters.eq("id",id))
+        val mongoCollection=collection?.deleteOne(Filters.eq("id",id))
         closeConnection()
-        val user = userMap[id]
-        userMap.remove(id)
-        return user
-
+        return mongoCollection?.deletedCount =="1".toLong()
     }
 }

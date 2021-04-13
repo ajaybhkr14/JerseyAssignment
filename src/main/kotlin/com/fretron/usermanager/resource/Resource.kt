@@ -1,5 +1,6 @@
 package com.fretron.usermanager.resource
 
+import com.fretron.usermanager.model.User
 import com.fretron.usermanager.service.Service
 import com.fretron.usermanager.util.Mapper
 import javax.ws.rs.*
@@ -28,8 +29,9 @@ class Resource(private val service: Service) {
     @PUT
     @Path("user/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun setUserById(@PathParam("userId")  userId: String, @QueryParam("name") name:String): Response {
-        val updatedUser =service.updateUserById(userId ,name)
+    fun setUserById(@PathParam("userId")  userId: String, @QueryParam("name") request: String): Response {
+        val user =Mapper().mapper(request)
+        val updatedUser =service.updateUserById(userId ,user)
         return Response.ok(updatedUser.toString()).build()
     }
     @DELETE
