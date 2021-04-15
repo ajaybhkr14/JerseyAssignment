@@ -3,12 +3,13 @@ package com.fretron.usermanager.resource
 import com.fretron.usermanager.model.User
 import com.fretron.usermanager.service.Service
 import com.fretron.usermanager.util.Mapper
+import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 @Path("/user/v1")
-class Resource(private val service: Service) {
+class Resource @Inject constructor(private val service: Service) {
 
     @POST
     @Path("user")

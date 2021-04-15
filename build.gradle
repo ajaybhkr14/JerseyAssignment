@@ -5,7 +5,13 @@ plugins {
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+apply plugin: 'kotlin-kapt'
 
+ext {
+    kotlin_version = "1.4.30"
+    jerseyVersion = "2.32"
+    daggerVersion = "2.30"
+}
 repositories {
     mavenCentral()
 }
@@ -27,6 +33,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
     implementation group: 'org.mongodb', name: 'mongodb-driver', version: '3.6.3'
 
+    compile group: 'com.google.dagger', name: 'dagger', version: daggerVersion
+    compile 'com.google.dagger:dagger-compiler:2.30'
+
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 }
 
 test {

@@ -9,8 +9,9 @@ import com.mongodb.client.model.Filters
 import com.mongodb.util.JSON
 import org.bson.Document
 import org.bson.conversions.Bson
+import javax.inject.Inject
 
-class UserRepository {
+class UserRepository @Inject constructor() {
     var mongoClient: MongoClient?=null
     var mongoDatabase: MongoDatabase?=null
 

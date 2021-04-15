@@ -3,8 +3,9 @@ package com.fretron.usermanager.service
 import com.fretron.usermanager.model.User
 import com.fretron.usermanager.repository.UserRepository
 import java.util.*
+import javax.inject.Inject
 
-class Service(private val repository: UserRepository) {
+class Service @Inject constructor(private val repository: UserRepository) {
 
     fun createUser(user: User): Boolean {
         if (user.name!!.isBlank()) throw Exception("name can't be blank")
