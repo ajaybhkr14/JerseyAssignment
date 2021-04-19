@@ -1,6 +1,7 @@
-package com.fretron.usermanager.resource
+package com.fretron.usermanager
 
 import com.fretron.usermanager.repository.UserRepository
+import com.fretron.usermanager.resource.Resource
 import com.fretron.usermanager.service.Service
 import org.glassfish.grizzly.http.server.HttpServer
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
