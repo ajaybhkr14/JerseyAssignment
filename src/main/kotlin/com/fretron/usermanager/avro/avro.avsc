@@ -1,0 +1,19 @@
+{
+  "namespace": "com.fretron.user.managermodel",
+  "type": "record",
+  "name": "User",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "age",
+      "type": ["string","null"]
+    }
+  ]
+}

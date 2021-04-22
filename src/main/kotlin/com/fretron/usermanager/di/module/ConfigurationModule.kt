@@ -1,4 +1,4 @@
-package com.fretron.usermanager.module
+package com.fretron.usermanager.di.module
 
 import dagger.Module
 import dagger.Provides

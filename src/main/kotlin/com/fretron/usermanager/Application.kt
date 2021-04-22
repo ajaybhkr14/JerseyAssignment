@@ -1,6 +1,6 @@
-package com.fretron.usermanager.resource
+package com.fretron.usermanager
 
-import com.fretron.usermanager.Component.DaggerAppComponent
+import com.fretron.usermanager.di.Component.DaggerAppComponent
 import com.fretron.usermanager.repository.UserRepository
 import com.fretron.usermanager.service.Service
 import org.glassfish.grizzly.http.server.HttpServer

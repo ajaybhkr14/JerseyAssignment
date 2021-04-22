@@ -1,14 +1,13 @@
 package com.fretron.usermanager.repository
 
 import com.fretron.usermanager.model.User
-import com.fretron.usermanager.util.Mapper
+import com.fretron.usermanager.util.UserMapper
 import com.mongodb.BasicDBObject
 import com.mongodb.MongoClient
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters
 import com.mongodb.util.JSON
 import org.bson.Document
-import org.bson.conversions.Bson
 import javax.inject.Inject
 
 class UserRepository @Inject constructor() {
@@ -17,9 +16,9 @@ class UserRepository @Inject constructor() {
 
     private fun createConnection(){
         mongoClient = MongoClient("127.0.0.1", 27017)
-
         mongoDatabase = mongoClient?.getDatabase("userDatabase")
     }
+
     private fun closeConnection(){
         mongoDatabase =null
         mongoClient?.close()
@@ -30,6 +29,7 @@ class UserRepository @Inject constructor() {
         val collection =mongoDatabase?.getCollection("user")
         val document =Document.parse(user.toString())
         collection?.insertOne(document)
+        println(user.toString())
         closeConnection()
         return true
     }
@@ -45,8 +45,7 @@ class UserRepository @Inject constructor() {
             val document =point.next()
             document.remove("_id")
             val json =JSON.serialize(document)
-            println(json.toString())
-            user = Mapper().mapper(json.toString())
+            user = UserMapper().mapper(json.toString())
             }
         }
         closeConnection()
@@ -54,12 +53,12 @@ class UserRepository @Inject constructor() {
     }
 
     fun updateUserById(id: String,user: User): Boolean {
-        println("asxaskk")
         createConnection()
         val collection =mongoDatabase?.getCollection("user")
         val query = BasicDBObject()
-        query["_id"]=id
+        query["id"]=id
         val document = Document.parse(user.toString())
+        println("dfadfad")
         val update = Document("\$set", document)
         val mongoCollection=collection?.findOneAndUpdate(query,update)
         return mongoCollection!=null

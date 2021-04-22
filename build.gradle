@@ -37,6 +37,12 @@ dependencies {
     compile 'com.google.dagger:dagger-compiler:2.30'
 
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation 'junit:junit:4.13.1'
+
+    // Mockito - Kotlin
+    testImplementation group: 'com.nhaarman', name: 'mockito-kotlin', version: '1.6.0'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
 }
 
 test {

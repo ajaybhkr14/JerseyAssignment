@@ -1,6 +1,6 @@
-package com.fretron.usermanager.Component
+package com.fretron.usermanager.di.Component
 
-import com.fretron.usermanager.module.*
+import com.fretron.usermanager.di.module.*
 import com.mongodb.connection.Server
 import dagger.Component
 import org.glassfish.grizzly.http.server.HttpServer

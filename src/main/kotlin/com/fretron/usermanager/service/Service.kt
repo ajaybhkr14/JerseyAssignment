@@ -8,26 +8,28 @@ import javax.inject.Inject
 class Service @Inject constructor(private val repository: UserRepository) {
 
     fun createUser(user: User): Boolean {
-        if (user.name!!.isBlank()) throw Exception("name can't be blank")
+        if (user.name.isNullOrBlank()) throw Exception("required field user name can't be  null or blank")
         user.id = UUID.randomUUID().toString()
-        val mapId = user.id.toString()
-        print(user)
         return repository.addUser(user)
     }
 
     fun getUserById(userId: String): User? {
         return repository.getUserById(userId)
     }
-    fun updateUserById(userId: String ,user: User) :Boolean{
-        if(getUserById(userId)==null)throw Exception("No User Found By id - $userId")
-        else{ return repository.updateUserById(userId ,user )}
+
+    fun updateUserById(userId: String,user: User): Boolean {
+        if (getUserById(userId)==null) throw Exception("No User Found By id - $userId")
+        else {
+            println("service")
+            return repository.updateUserById(userId,user)
+        }
     }
-    fun deleteUserById(userId: String) :Boolean{
-        if(getUserById(userId)==null)throw Exception("No User Found By id - $userId")
-        else{
-            print("dsvs")
-        return repository.deleteUserById(userId)
-    }
+
+    fun deleteUserById(userId: String): Boolean {
+        if (getUserById(userId)==null) throw Exception("No User Found By id - $userId")
+        else {
+            return repository.deleteUserById(userId)
+        }
     }
 
 }

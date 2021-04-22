@@ -1,4 +1,4 @@
-package com.fretron.usermanager.module
+package com.fretron.usermanager.di.module
 
 import com.fretron.usermanager.repository.UserRepository
 import com.fretron.usermanager.service.Service

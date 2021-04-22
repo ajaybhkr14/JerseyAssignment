@@ -1,8 +1,7 @@
 package com.fretron.usermanager.resource
 
-import com.fretron.usermanager.model.User
 import com.fretron.usermanager.service.Service
-import com.fretron.usermanager.util.Mapper
+import com.fretron.usermanager.util.UserMapper
 import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
@@ -15,7 +14,7 @@ class Resource @Inject constructor(private val service: Service) {
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
     fun addUser(request: String):Response{
-        val user= Mapper().mapper(request)
+        val user= UserMapper().mapper(request)
         val createdUser = this.service.createUser(user)
         return Response.ok(createdUser.toString()).build()
     }
@@ -30,9 +29,10 @@ class Resource @Inject constructor(private val service: Service) {
     @PUT
     @Path("user/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun setUserById(@PathParam("userId")  userId: String, @QueryParam("name") request: String): Response {
-        val user =Mapper().mapper(request)
+    fun setUserById(@PathParam("userId")  userId: String,    request: String): Response {
+        val user =UserMapper().mapper(request)
         val updatedUser =service.updateUserById(userId ,user)
+
         return Response.ok(updatedUser.toString()).build()
     }
     @DELETE
