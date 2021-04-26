@@ -3,10 +3,10 @@ package repository
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fretron.usermanager.model.User
 import com.fretron.usermanager.repository.UserRepository
-import com.mongodb.MongoClient
 import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
 
 import testData.TestData
 
@@ -14,13 +14,15 @@ class UserRepositoryTest {
     private lateinit var userRepository: UserRepository
     private val objectMapper = ObjectMapper()
     private val uuid :String=""
-    @Before
+
+    @BeforeEach
     fun config(){
-    userRepository = UserRepository()
+    userRepository = mock(UserRepository::class.java)
 
     }
     @Test
     fun createUser(){
+        println("hjh")
         val request = TestData.createUser()
         val user = objectMapper.readValue(request,User::class.java)
         val userCreated = userRepository.addUser(user)
@@ -42,8 +44,9 @@ class UserRepositoryTest {
     fun updateUser(){
         val user=TestData.getUser()
         val createUser =userRepository.addUser(user)
+        println("update user")
         println("user = $createUser")
-        val request = TestData.createUser()
+        val request = TestData.updateUser()
         val updateUser = objectMapper.readValue(request,User::class.java)
         val userUpdated =userRepository.updateUserById(uuid,updateUser)
         println("updated user in db = $userUpdated")

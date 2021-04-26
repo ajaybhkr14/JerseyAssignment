@@ -43,8 +43,18 @@ dependencies {
     testImplementation group: 'com.nhaarman', name: 'mockito-kotlin', version: '1.6.0'
     testImplementation 'org.mockito:mockito-inline:2.13.0'
 
-}
+    //Avro
+    implementation group: 'org.apache.avro', name: 'avro', version: '1.10.0'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    implementation group: 'com.sun.jersey', name: 'jersey-json', version: '1.19.4'
 
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.29'
+}
+task generateAvro(type: com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/main/kotlin/com/fretron/usermanager/avro")
+    include("**/**/*.avsc")
+    outputDir = file("src/main/java")
+}
 test {
     useJUnitPlatform()
 }
