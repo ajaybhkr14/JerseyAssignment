@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fretron.usermanager.model.User
 import com.fretron.usermanager.repository.UserRepository
 import com.fretron.usermanager.service.Service
+import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -14,16 +15,17 @@ class userServiceTest {
     private val mapper = ObjectMapper()
     private val userRepository:UserRepository=mock(UserRepository::class.java)
     private var userService= Service(userRepository)
-    private lateinit var uuid:String
+    private lateinit var id:String
 
     @Test
     fun createUser(){
         val request =TestData.createUser()
         val user =  mapper.readValue(request,User::class.java)
+        whenever(userService.createUser(user)).thenReturn(true)
         val createdUser  =  userService.createUser(user)
         println(createdUser.toString())
         assertNotNull(createdUser)
-        assertNotNull(userService.getUserById(uuid)?.name)
+        assertNotNull(userService.getUserById(id)?.name)
     }
     @Test
     fun getUser(){
@@ -37,15 +39,17 @@ class userServiceTest {
         createUser()
         val request = TestData.updateUser()
         val updateUser = mapper.readValue(request,User::class.java)
-        val updated = userService.updateUserById(uuid,updateUser)
-        assert(userService.getUserById(uuid)?.name!= null)
-
+        whenever(userService.createUser(updateUser)).thenReturn(true)
+        val updated = userService.updateUserById(id,updateUser)
+        assert(userService.getUserById(id)?.name!= null)
+        assert(updated)
     }
     @Test
     fun deleteUser(){
         createUser()
         val request =TestData.getUser()
-        val deleted = userService.deleteUserById(uuid)
+        whenever(userService.deleteUserById(request.id.toString())).thenReturn(true)
+        val deleted = userService.deleteUserById(id)
         assert(deleted)
     }
 

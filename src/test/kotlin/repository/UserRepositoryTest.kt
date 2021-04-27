@@ -13,7 +13,7 @@ import testData.TestData
 class UserRepositoryTest {
     private lateinit var userRepository: UserRepository
     private val objectMapper = ObjectMapper()
-    private val uuid :String=""
+    private val id :String=""
 
     @BeforeEach
     fun config(){
@@ -36,7 +36,7 @@ class UserRepositoryTest {
         val user =TestData.getUser()
         val userCreated = userRepository.addUser(user)
         println("user = $userCreated")
-        val userDb =userRepository.getUserById(uuid)
+        val userDb =userRepository.getUserById(id)
         println("Db user =$userDb")
         assertNotNull(userCreated)
     }
@@ -48,7 +48,7 @@ class UserRepositoryTest {
         println("user = $createUser")
         val request = TestData.updateUser()
         val updateUser = objectMapper.readValue(request,User::class.java)
-        val userUpdated =userRepository.updateUserById(uuid,updateUser)
+        val userUpdated =userRepository.updateUserById(id,updateUser)
         println("updated user in db = $userUpdated")
         assertNotNull(userUpdated)
     }
@@ -57,7 +57,7 @@ class UserRepositoryTest {
         val user =TestData.getUser()
         val createUser =userRepository.addUser(user)
         println("user = $createUser")
-        val userDeleted =userRepository.deleteUserById(uuid)
+        val userDeleted =userRepository.deleteUserById(id)
         println("Deleted Vehicle from DB -> $userDeleted")
         assertNotNull(userDeleted)
     }

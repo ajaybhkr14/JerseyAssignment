@@ -49,12 +49,13 @@ dependencies {
     implementation group: 'com.sun.jersey', name: 'jersey-json', version: '1.19.4'
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.29'
+
+    // Jersey Test
+    testImplementation group: 'org.glassfish.jersey.test-framework', name: 'jersey-test-framework-core', version: jerseyVersion
+    testImplementation group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-grizzly2', version: jerseyVersion
+
 }
-task generateAvro(type: com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask) {
-    source("src/main/kotlin/com/fretron/usermanager/avro")
-    include("**/**/*.avsc")
-    outputDir = file("src/main/java")
-}
+
 test {
     useJUnitPlatform()
 }

@@ -11,7 +11,7 @@ import javax.inject.Named
 import javax.ws.rs.core.UriBuilder
 
 @Module
-class HttpModule {
+class   HttpModule {
 
     @Provides
     fun provideResource(resource:Resource):ResourceConfig{
