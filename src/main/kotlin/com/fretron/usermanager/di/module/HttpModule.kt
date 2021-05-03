@@ -1,6 +1,6 @@
 package com.fretron.usermanager.di.module
 
-import com.fretron.usermanager.resource.Resource
+import com.fretron.usermanager.resource.UserResource
 import dagger.Module
 import dagger.Provides
 import org.glassfish.grizzly.http.server.HttpServer
@@ -14,8 +14,8 @@ import javax.ws.rs.core.UriBuilder
 class   HttpModule {
 
     @Provides
-    fun provideResource(resource:Resource):ResourceConfig{
-        return ResourceConfig().register(resource)
+    fun provideResource(userResource:UserResource):ResourceConfig{
+        return ResourceConfig().register(userResource)
 
     }
     @Provides

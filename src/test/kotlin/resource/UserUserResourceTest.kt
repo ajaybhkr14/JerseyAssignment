@@ -1,7 +1,7 @@
 package resource
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fretron.usermanager.resource.Resource
+import com.fretron.usermanager.resource.UserResource
 import com.fretron.usermanager.service.Service
 import junit.framework.Assert.assertTrue
 import org.glassfish.jersey.server.ResourceConfig
@@ -14,14 +14,14 @@ import javax.ws.rs.client.Entity
 import javax.ws.rs.core.Application
 import javax.ws.rs.core.MediaType
 
-class UserResourceTest : JerseyTest() {
+class UserUserResourceTest : JerseyTest() {
     private val baseUrl = "vehicle/v1"
     private var id = ""
     private val userService: Service = mock(Service::class.java)
     private val mapper = ObjectMapper()
 
     override fun configure(): Application {
-        return ResourceConfig().register(Resource(userService)).application
+        return ResourceConfig().register(UserResource(userService)).application
     }
 
     @Test

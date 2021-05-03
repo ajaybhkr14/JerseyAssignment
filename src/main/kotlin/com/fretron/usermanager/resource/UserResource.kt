@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 @Path("/user/v1")
-class Resource @Inject constructor(private val service: Service) {
+class UserResource @Inject constructor(private val service: Service) {
 
     @POST
     @Path("user")
