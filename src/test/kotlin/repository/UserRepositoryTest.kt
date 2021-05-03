@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fretron.usermanager.model.User
 import com.fretron.usermanager.repository.UserRepository
 import org.junit.Assert.*
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.Before
+import org.junit.Test
 import org.mockito.Mockito.mock
 
 import testData.TestData
@@ -15,11 +15,12 @@ class UserRepositoryTest {
     private val objectMapper = ObjectMapper()
     private val id :String=""
 
-    @BeforeEach
+    @Before
     fun config(){
     userRepository = mock(UserRepository::class.java)
 
     }
+
     @Test
     fun createUser(){
         println("hjh")
